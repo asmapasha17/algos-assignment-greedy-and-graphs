@@ -60,40 +60,24 @@ public class FastestRoutePublicTransit {
 
 	public int[] shortestPathUsingDijestrea(int[][] graph, int source, int T) {
 		int numVertices = graph[0].length;
-		// This is the array where we'll store all the final shortest times
 		int[] times = new int[numVertices];
-		// This array stores the shortest path from starting station source, to target
-		// station, T
 		int[] path = new int[numVertices];
-		// keeps track of the previous stations from the current station
 		int[] prev = new int[numVertices];
-		prev[source] = -1;// source is the starting station, so there is no previous station from the
-							// source
-
-		// processed[i] will true if vertex i's shortest time is already finalized
+		prev[source] = -1;
 		Boolean[] processed = new Boolean[numVertices];
-		// Initialize all distances as INFINITE and processed[] as false
 		for (int v = 0; v < numVertices; v++) {
 			times[v] = Integer.MAX_VALUE;
 			path[v] = -1; // initialize to -1 to indicate the end of the path
 			processed[v] = false;
 		}
-		// Distance of source vertex from itself is always 0
 		times[source] = 0;
 
 		// Find shortest path to all the vertices
 		for (int count = 0; count < numVertices - 1; count++) {
-			// Pick the minimum distance vertex from the set of vertices not yet processed.
-			// u is always equal to source in first iteration.
-			// Mark u as processed.
 			int u = findNextToProcess(times, processed);
 			processed[u] = true;
-
-			// Update time value of all the adjacent vertices of the picked vertex.
 			for (int v = 0; v < numVertices; v++) {
-				// Update time[v] only if is not processed yet, there is an edge from u to v,
-				// and total weight of path from source to v through u is smaller than current
-				// value of time[v]
+				
 				if (!processed[v] && graph[u][v] != 0 && times[u] != Integer.MAX_VALUE
 						&& times[u] + graph[u][v] < times[v]) {
 					times[v] = times[u] + graph[u][v];
@@ -103,10 +87,7 @@ public class FastestRoutePublicTransit {
 		}
 
 		int index = T; // keep track of the stations
-		int currentIndex = 0; // keep track of current station
-		// backtrack from the destination to the source with the help from the prev
-		// array (the array that holds the previous station)
-		// at -1, we know that we hit the source or starting station
+		int currentIndex = 0; 
 		while (prev[index] != -1) {
 			path[currentIndex] = index;
 			currentIndex++;
@@ -118,13 +99,13 @@ public class FastestRoutePublicTransit {
 	}
 
 	public int comingPoint(int first[][], int freq[][], int currentTime, int path[], int index, int lengths[][]) {
-		// were at our destination
+		//destination
 		if (index == 0) {
 			return 0;
 		} // current position
 		int currentNum = path[index];
-		int upComingPosition = path[index - 1]; // the next point the train
-		// the time of the first train
+		int upComingPosition = path[index - 1]; 
+		// time of first train
 		int trainTimes = first[currentNum][upComingPosition];
 		int i = 0;
 		while (trainTimes < currentTime) {
