@@ -49,12 +49,11 @@ public class PhysicsExperiment {
 		while (check > 0) {
 			// checking whether student is signed up or not
 			if (signUpTable[presentStudent][presentStep] == 0) {
-				// check most step done by present student
 				if (presentStep != numSteps) {
 					int link = 0; 
 					int point = 1; 
 					for (int row = 1; row <= numStudents; row++) {
-						int joinedLink = 0; // take count of link
+						int joinedLink = 0; 
 						for (int col = presentStep; col <= numSteps; col++) {
 							// check sign up
 							if (signUpTable[row][col] == 0) {
@@ -82,7 +81,7 @@ public class PhysicsExperiment {
 						presentStudent = presentStudent + 1;
 				}
 			}
-			// the student is signed up for the present step
+
 			else {
 				scheduleTable[presentStudent][presentStep] = 1;
 				presentStep = presentStep + 1;
